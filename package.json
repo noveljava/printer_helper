@@ -1,0 +1,23 @@
+{
+  "name": "printer_helper",
+  "version": "1.0.0",
+  "description": "Printer Helper",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noveljava/printer_helper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noveljava/printer_helper/issues"
+  },
+  "homepage": "https://github.com/noveljava/printer_helper#readme",
+  "devDependencies": {
+    "electron": "^11.0.3"
+  }
+}
