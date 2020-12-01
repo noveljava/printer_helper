@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/noveljava/printer_helper#readme",
   "devDependencies": {
+    "bootstrap": "^4.5.3",
     "electron": "^11.0.3"
   }
 }
