@@ -49,7 +49,7 @@
         <tr>
           <td></td><td></td>
           <td></td>
-          <td><button id="load" type="button" class="btn btn-primary btn-sm btn-block">불러오기</button></td>
+          <td><button id="load" type="button" class="btn btn-primary btn-sm btn-block" onclick="load_page()">불러오기</button></td>
         </tr>
       </tbody>
     </table>
@@ -57,5 +57,16 @@
 
 <!-- <script>require('bootstrap');</script> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<script type="text/javascript">
+  function load_page() {
+    var top = window.screenY;
+    var left = window.screenX + 800;
+
+    var options = 'top=' + top + ', left=' + left + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no'; 
+    console.log(options);
+    window.open("load_page.html", name="test", options);
+  }
+</script>
 </body>
 </html>
