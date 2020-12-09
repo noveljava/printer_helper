@@ -43,6 +43,7 @@ class Helper {
         this.setting_total_page()
         this.calculate_color_page()
         this.calculate_black_page()
+        this.calculate_page_count()
     }
 
     calculate_color_page() {
@@ -114,11 +115,24 @@ class Helper {
         }
         return str.substr(0, str.length-2)
     }
+
+    calculate_page_count() {
+        this.black_page_count = 0
+        this.color_page_count = 0
+
+        for(var i=this.add_page_count+1; i<=this.total_page_count; i++) {
+            if(this.total_page_info[i]) {
+                this.black_page_count += 1
+            } else {
+                this.color_page_count += 1
+            }
+        }
+    }
 }
 
 
 a = new Helper()
-a.total_page_count = 20
+a.total_page_count = 30
 a.add_page_count = 5
 a.double_option = true
 a.color_page_str = "1, 2, 3, 5~7, 10"
