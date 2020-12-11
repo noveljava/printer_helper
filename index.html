@@ -23,11 +23,11 @@
         </tr>
         <tr>
           <td>더할 페이지(로마자)</td><td></td>
-          <td><input type="text" class="form-control" id="input_add_page" /></td>
+          <td><input type="text" class="form-control" id="input_add_page" value="0" /></td>
           <td></td>
         </tr>
         <tr>
-          <td>컬러페이지</td><td id="color_page_count">12페이지</td>
+          <td>컬러페이지</td><td id="color_page_count"></td>
           <td><input type="text" class="form-control" id="input_color_page" /></td>
           <td>
     				<div class="custom-control custom-checkbox">
@@ -49,7 +49,7 @@
         <tr>
           <td></td><td></td>
           <td></td>
-          <td><button id="load" type="button" class="btn btn-primary btn-sm btn-block" onclick="load_page()">불러오기</button></td>
+          <td><button id="load" type="button" class="btn btn-primary btn-sm btn-block" onclick="popup_load_page()">불러오기</button></td>
         </tr>
       </tbody>
     </table>
@@ -57,9 +57,12 @@
 
 <!-- <script>require('bootstrap');</script> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script type="text/javascript" src="./helper.js"></script>
 <script type="text/javascript">
-  function load_page() {
+  print_helper = new Helper();
+
+  function popup_load_page() {
     var top = window.screenY;
     var left = window.screenX + 800;
 
@@ -67,6 +70,30 @@
     console.log(options);
     window.open("load_page.html", name="test", options);
   }
+
+  $("#input_total_page").focusout(function() {
+    print_helper.total_page_count = parseInt($("#input_total_page").val());
+    refresh();
+  });
+
+  $("#input_add_page").focusout(function() {
+    print_helper.add_page_count = parseInt($("#input_add_page").val());
+    refresh();
+  });
+
+  $("#input_color_page").focusout(function() {
+    print_helper.color_page_str = $("#input_color_page").val();
+    refresh();
+  });
+
+  function refresh() {
+    if( print_helper.calculate_all_page() ) {
+      $("#input_black_page").val(print_helper.black_page_str);
+      $("#color_page_count").html(print_helper.color_page_count+" 페이지");
+      $("#black_page_count").html(print_helper.black_page_count+" 페이지");
+    }
+  }
+
 </script>
 </body>
 </html>

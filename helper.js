@@ -39,11 +39,21 @@ class Helper {
         this.total_page_info = new Array(this.total_page_count+2).fill(true);
     }
 
+    is_possible_calculate() {
+        return this.total_page_count != 0 && this.color_page_str != ""
+    }
+
     calculate_all_page() {
-        this.setting_total_page()
-        this.calculate_color_page()
-        this.calculate_black_page()
-        this.calculate_page_count()
+        var is_calculated = false;
+        if(this.is_possible_calculate()) {
+            this.setting_total_page()
+            this.calculate_color_page()
+            this.calculate_black_page()
+            this.calculate_page_count()
+            is_calculated = true;
+        }
+
+        return is_calculated
     }
 
     calculate_color_page() {
@@ -92,6 +102,7 @@ class Helper {
 
     calculate_black_page() {
         this.black_page_str = this.calculate_str(true)
+        console.log("Yooooooo", this.black_page_str)
     }
 
     calculate_str(check_value) {
@@ -131,11 +142,11 @@ class Helper {
 }
 
 
-a = new Helper()
-a.total_page_count = 30
-a.add_page_count = 5
-a.double_option = true
-a.color_page_str = "1, 2, 3, 5~7, 10"
-a.calculate_all_page()
-console.log(a)
+// a = new Helper()
+// a.total_page_count = 30
+// a.add_page_count = 5
+// a.double_option = true
+// a.color_page_str = "1, 2, 3, 5~7, 10"
+// a.calculate_all_page()
+// console.log(a)
 
