@@ -33,8 +33,13 @@
     				<div class="custom-control custom-checkbox">
               <input type="checkbox" id="jb-checkbox" class="custom-control-input">
               <label class="custom-control-label" for="jb-checkbox">양면출력</label>
-              </div>
+            </div>
           </td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td id="re_color_page_info"></td>
+          <td></td>
         </tr>
         <tr>
           <td>흑백페이지</td><td id="black_page_count"></td>
@@ -86,11 +91,34 @@
     refresh();
   });
 
+  $("#jb-checkbox").click(function() {
+    print_helper.double_option = $("#jb-checkbox").is(":checked");
+    refresh();
+  });
+
+  $("#copy").click(function() {
+    var copy_test = document.getElementById("input_black_page");
+    copy_test.select();
+    copy_test.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+
+    alert("복사 되었습니다.");
+  });
+
   function refresh() {
-    if( print_helper.calculate_all_page() ) {
-      $("#input_black_page").val(print_helper.black_page_str);
-      $("#color_page_count").html(print_helper.color_page_count+" 페이지");
-      $("#black_page_count").html(print_helper.black_page_count+" 페이지");
+    try{
+      if( print_helper.calculate_all_page() ) {
+        $("#input_black_page").val(print_helper.black_page_str);
+        $("#color_page_count").html(print_helper.color_page_count+" 페이지");
+        $("#black_page_count").html(print_helper.black_page_count+" 페이지");
+        $("#re_color_page_info").html(print_helper.re_color_page_str);
+      }
+    }catch(error) {
+      $("#input_black_page").val("");
+      $("#color_page_count").html("");
+      $("#black_page_count").html("");
+      
+      $("#re_color_page_info").html(error);
     }
   }
 

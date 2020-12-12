@@ -52,7 +52,7 @@ class Helper {
             this.calculate_page_count()
             is_calculated = true;
         }
-
+        
         return is_calculated
     }
 
@@ -91,6 +91,10 @@ class Helper {
             }
         }
         
+        if( color_page_list.reverse()[0] + this.add_page_count > this.total_page_count) {
+            throw "총 페이지를 넘어갑니다. 확인 부탁드립니다."
+        }
+
         color_page_list.reverse().forEach(e => {
             var add_idx = e + this.add_page_count
             this.total_page_info[e] = true
@@ -102,7 +106,6 @@ class Helper {
 
     calculate_black_page() {
         this.black_page_str = this.calculate_str(true)
-        console.log("Yooooooo", this.black_page_str)
     }
 
     calculate_str(check_value) {
@@ -140,13 +143,3 @@ class Helper {
         }
     }
 }
-
-
-// a = new Helper()
-// a.total_page_count = 30
-// a.add_page_count = 5
-// a.double_option = true
-// a.color_page_str = "1, 2, 3, 5~7, 10"
-// a.calculate_all_page()
-// console.log(a)
-
