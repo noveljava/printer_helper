@@ -64,6 +64,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script>window.$ = window.jQuery = require('jquery');</script>
 <script type="text/javascript" src="./helper.js"></script>
+<script type="text/javascript" src="./db.js"></script>
 <script type="text/javascript">
   print_helper = new Helper();
 
@@ -71,7 +72,7 @@
     var top = window.screenY;
     var left = window.screenX + 800;
 
-    var options = 'top=' + top + ', left=' + left + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no'; 
+    var options = 'top=' + top + ', left=' + left + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
     console.log(options);
     window.open("load_page.html", name="test", options);
   }
@@ -117,7 +118,7 @@
       $("#input_black_page").val("");
       $("#color_page_count").html("");
       $("#black_page_count").html("");
-      
+
       $("#re_color_page_info").html(error);
     }
   }

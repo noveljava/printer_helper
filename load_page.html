@@ -6,23 +6,16 @@
 </head>
 <body style="background: white;">
 <div class="mx-auto pt-5" style="width: 400px;">
-    <table class="table">
+    <table class="table" id="saved_list">
         <colgroup>
           <col width="80%">
           <col width="*%">
         </colgroup>
-        <tr>
-            <td>Load ....</td><td><button class="btn btn-primary btn-sm btn-block">확인</button></td>
-        </tr>
-        <tr>
-            <td>Load ....</td><td><button class="btn btn-primary btn-sm btn-block">확인</button></td>
-        </tr>
-        <tr>
-            <td>Load ....</td><td><button class="btn btn-primary btn-sm btn-block">확인</button></td>
-        </tr>
-        <tr>
-            <td>Load ....</td><td><button class="btn btn-primary btn-sm btn-block">확인</button></td>
-        </tr>
+        <tbody>
+            <tr>
+                <td>Load ....</td><td><button id="testbtn" class="btn btn-primary btn-sm btn-block">확인</button></td>
+            </tr>
+        </tbody>
         <footer>
             <tr>
                 <td></td><td><button class="btn btn-primary btn-sm btn-block">닫기</button></td>
@@ -31,5 +24,26 @@
     </table>
 </div>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script type="text/javascript" src="./db.js"></script>
+<script type="text/javascript">
+    db = new DB()
+    console.log("Test")
+    $(document).ready(function() {
+        db.get_title_list().forEach(element => {
+            var row_info = "<tr>";
+            row_info += "<td>"+element+"</td>";
+            row_info += '<td><button id="load_btn" class="btn btn-primary btn-sm btn-block">확인</button></td>';
+            row_info += "</tr>"
+            $('#saved_list').append(row_info);
+        })
+    });
+
+    $(document).on("click", "#saved_list", function(e) {
+        var title = e.target.parentElement.previousElementSibling.innerHTML
+        info = db.get_title_info(title)
+        console.log(info)
+    })
+</script>
 </body>
 </html>
