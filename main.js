@@ -1,15 +1,19 @@
+'use strict'
 const { app, BrowserWindow } = require('electron')
 
+console.log(BrowserWindow)
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            affinity: 'main-window',
+            nativeWindowOpen: true
         }
     })
 
-    win.loadFile('load_page.html')
+    win.loadFile('index.html')
     win.webContents.openDevTools()
 }
 

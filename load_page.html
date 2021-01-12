@@ -13,24 +13,33 @@
         </colgroup>
         <tbody>
             <tr>
-                <td>Load ....</td><td><button id="testbtn" class="btn btn-primary btn-sm btn-block">확인</button></td>
+                <td>저장된 데이터가 없습니다</td><td><button class="btn btn-primary btn-sm btn-block disabled">확인</button></td>
             </tr>
         </tbody>
         <footer>
             <tr>
-                <td></td><td><button class="btn btn-primary btn-sm btn-block">닫기</button></td>
+                <td></td><td><button id="close" class="btn btn-primary btn-sm btn-block">닫기</button></td>
             </tr>
         </footer>
     </table>
+    <div id="debug">
+        test
+    </div>
 </div>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script>window.$ = window.jQuery = require('jquery');</script>
+<!-- <script type="text/javascript" src="./util/jquery-3.5.1.min.js"></script> -->
 <script type="text/javascript" src="./db.js"></script>
 <script type="text/javascript">
     db = new DB()
     console.log("Test")
     $(document).ready(function() {
-        db.get_title_list().forEach(element => {
+        var saved_list = db.get_title_list()
+        if(saved_list != null) {
+            $('#saved_list tr:first').remove();
+        }
+
+        saved_list.forEach(element => {
             var row_info = "<tr>";
             row_info += "<td>"+element+"</td>";
             row_info += '<td><button id="load_btn" class="btn btn-primary btn-sm btn-block">확인</button></td>';
@@ -44,6 +53,20 @@
         info = db.get_title_info(title)
         console.log(info)
     })
+
+    $("#close").on("click", function() {
+        // $("#debug").html(JSON.stringify(opener))
+        try {
+            opener.popup_close()
+        }catch(error) {
+            $("#debug").html(error)
+        }
+    })
+
+    function test() {
+        alert('test');
+    }
+
 </script>
 </body>
 </html>
