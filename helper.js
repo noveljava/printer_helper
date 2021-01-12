@@ -19,7 +19,6 @@ class Helper {
     }
 
     checkFormat(str) {
-        console.log(str)
         if( "," == str[0])
             str = str.substr(1, str.length-1)
 
@@ -52,18 +51,18 @@ class Helper {
             this.calculate_page_count()
             is_calculated = true;
         }
-        
+
         return is_calculated
     }
 
     calculate_color_page() {
         this.re_color_page_str = this.checkFormat(this.replaceAll(this.color_page_str, " ", ""))
-        
+
         this.re_color_page_str.split(",").forEach(e => {
             if(e.includes("-") || e.includes("~")) {
                 var start = parseInt( (e.includes("-")? e.split("-")[0] : e.split("~")[0]) )
                 var end = parseInt( (e.includes("-")? e.split("-")[1] : e.split("~")[1]) )
-                
+
                 for(var i=start; i<=end; i++) {
                     this.total_page_info[i] = false
                 }
@@ -90,7 +89,7 @@ class Helper {
                 color_page_list.push(i)
             }
         }
-        
+
         if( color_page_list.reverse()[0] + this.add_page_count > this.total_page_count) {
             throw "총 페이지를 넘어갑니다. 확인 부탁드립니다."
         }
