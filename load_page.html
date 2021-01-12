@@ -18,12 +18,11 @@
         </tbody>
         <footer>
             <tr>
-                <td></td><td><button id="close" class="btn btn-primary btn-sm btn-block">닫기</button></td>
+                <td></td><td><button id="closeBtn" class="btn btn-primary btn-sm btn-block">닫기</button></td>
             </tr>
         </footer>
     </table>
     <div id="debug">
-        test
     </div>
 </div>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -50,21 +49,15 @@
 
     $(document).on("click", "#saved_list", function(e) {
         var title = e.target.parentElement.previousElementSibling.innerHTML
-        info = db.get_title_info(title)
-        console.log(info)
+        try_close(title)
     })
 
-    $("#close").on("click", function() {
-        // $("#debug").html(JSON.stringify(opener))
+    function try_close(info) {
         try {
-            opener.popup_close()
+            opener.popup_close(info)
         }catch(error) {
             $("#debug").html(error)
         }
-    })
-
-    function test() {
-        alert('test');
     }
 
 </script>

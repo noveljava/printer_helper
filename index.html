@@ -48,8 +48,8 @@
         </tr>
         <tr>
           <td>파일이름</td><td></td>
-          <td><input type="text" class="form-control" id="save" /></td>
-          <td><a href="#" class="btn btn-primary btn-sm btn-block disabled" tabindex="-1" role="button" aria-disabled="true">저장</a></td>
+          <td><input type="text" class="form-control" id="save_title" /></td>
+          <td><a href="#" id="saved_btn" class="btn btn-primary btn-sm btn-block disabled" tabindex="-1" role="button" aria-disabled="true">저장</a></td>
         </tr>
         <tr>
           <td></td><td></td>
@@ -67,13 +67,15 @@
 <script type="text/javascript" src="./db.js"></script>
 <script type="text/javascript">
   print_helper = new Helper();
+  db = new DB();
+  var child_window = null
 
   function popup_load_page() {
     var top = window.screenY;
     var left = window.screenX + 800;
 
     var options = 'top=' + top + ', left=' + left + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
-    window.open("load_page.html", "Load", options);
+    child_window = window.open("load_page.html", "Load", options, false);
   }
 
   $("#input_total_page").focusout(function() {
@@ -105,6 +107,24 @@
     alert("복사 되었습니다.");
   });
 
+  $("#save_title").keyup(function() {
+    var is_disabled = $("#saved_btn").hasClass("disabled")
+    var text_length = $("#save_title").val().length
+    if(text_length == 0 && !is_disabled) {
+      $("#saved_btn").addClass("disabled")
+    }else if (text_length != 0 && is_disabled ){
+      $("#saved_btn").removeClass("disabled")
+    }
+  })
+
+  $("#saved_btn").click(function() {
+    title = $("#save_title").val()
+    info = JSON.stringify(print_helper)
+    db.save_data(title, info)
+    alert("저장되었습니다.")
+    $("#saved_btn").addClass("disabled")
+  })
+
   function refresh() {
     try{
       if( print_helper.calculate_all_page() ) {
@@ -112,6 +132,24 @@
         $("#color_page_count").html(print_helper.color_page_count+" 페이지");
         $("#black_page_count").html(print_helper.black_page_count+" 페이지");
         $("#re_color_page_info").html(print_helper.re_color_page_str);
+
+
+        if($('#input_total_page').val() == "") {
+          $('#input_total_page').val(print_helper.total_page_count)
+        }
+
+        if($('#input_add_page').val() == "0") {
+          $('#input_add_page').val(print_helper.add_page_count)
+        }
+
+        if($('#input_color_page').val() == "") {
+          $('#input_color_page').val(print_helper.color_page_str)
+        }
+
+        if(print_helper.double_option ^ $("#jb-checkbox").is(":checked")) {
+          $("#jb-checkbox").click()
+        }
+
       }
     }catch(error) {
       $("#input_black_page").val("");
@@ -122,8 +160,18 @@
     }
   }
 
-  function popup_close() {
-    alert("Test.....")
+  function popup_close(load_title) {
+    if(load_title != "") {
+      saved_info = JSON.parse(db.get_title_info(load_title))
+      print_helper.total_page_count = saved_info.total_page_count
+      print_helper.add_page_count = saved_info.add_page_count
+      print_helper.color_page_str = saved_info.color_page_str
+      print_helper.double_option = saved_info.double_option
+
+      refresh()
+    }
+
+    child_window.close()
   }
 </script>
 </body>
